@@ -22,41 +22,7 @@
 | (2) 기존연구와의 비교 | <br>**유사 서비스**<br>1. Google Teachable Machine<br>- 사용자가 데이터를 라벨링하여 입력하면 코드를 입력하지 않고도 자동으로 학습된 모델을 제공함<br>- 한계점: 모델을 직접 설계하거나, layer를 조합해 구성하는 기능은 없음<br>2. Microsoft Lobe<br>- 이미지 분류 모델을 코드를 작성하지 않고 만들 수 있으며, 시각적인 라벨링 및 학습 과정을 제공.<br>- 한계점: 모델의 세부적인 구조 설계 불가능.<br>3. Orange Data Mining, Tableau<br>- 블록 형태로 데이터 전처리, 분석, 시각화를 할 수 있는 노코드 시각화 툴<br>- 한계점: 딥러닝 layer를 쌓아 모델을 직접 구성하는 기능은 없음<br>4. KNIME, RapidMiner<br>- 데이터 분석, 머신러닝 기능을 제공하며 블록 기반 시각적 UI 지원<br>- 한계점: AI 모델 학습 파이프라인은 구성할 수 있으나, CNN 모델이 아닌 머신러닝 모델 위주이기 때문에 CNN layer 단위의 모델 구조 설계 기능은 없음. <br><br>**본 서비스와의 차별점**<br>1. 모델 설계 방식: 사용자가 직접 Conv, Pooling, Dense와 같은 딥러닝 레이어를 블록처럼 조립하여 모델 구조를 직관적으로 설계할 수 있음<br>2. GPT 기반 코드 자동 생성: 사용자가 설계한 블록 구조를 기반으로 GPT에 전달하여, 실행 가능한 tensorflow 코드를 자동으로 생성<br>3. AI 피드백: 학습이 완료된 후 모델 구조 및 성능을 GPT에 다시 전달하여, 해당 모델의 개선 피드백 제공<br>4. 비전공자/코딩 초보 타겟: 프로그래밍에 익숙하지 않은 AI 학습자, 비전공 입문자 등을 위해 딥러닝 진입 장벽을 낮추어 설계됨 <br><br>**결론**<br>- 기존 서비스들은 대부분 데이터 분석이나 머신러닝 파이프라인 시각화에 초점을 맞추고 있으며, 딥러닝 모델 제작 기능이 있는 경우에도 주로 사용자 데이터를 기반으로 모델이 자동 생성되는 형태에 그친다. 반면, 본 서비스는 사용자가 직접 딥러닝 레이어를 블록 형태로 조립하여 모델을 설계함으로써, 딥러닝 구조에 대한 직관적인 이해를 돕고 각 레이어의 역할을 깊이 있게 학습할 수 있도록 설계되었다. 또한, 설계된 모델을 GPT를 통해 하드코딩 없이 학습 가능한 코드로 자동 변환하므로, 더 유연하고 실용적인 딥러닝 교육 플랫픔으로서 기존 서비스 대비 높은 차별성과 교육적 가치를 지닌다.<br><br>|
 | (3) 제안 내용 | <br>본 프로젝트는 프로그래밍에 익숙하지 않은 AI 학습자들을 위해 딥러닝 모델을 직관적으로 설계하고 학습할 수 있는 블록 기반 CNN 모델 제작 플랫폼을 제안한다. 사용자는 Conv, Pooling, Dense 등의 레이어를 직접 조립하여 모델을 설계할 수 있으며, 내부적으로는 해당 구조가 JSON 데이터 형태로 변환된다. 이 JSON 데이터는 GPT API를 통해 tensorflow 코드로 자동 변환되며, 생성된 코드는 서버의 GPT 환경에서 직접 학습된다. 학습 로그는 실시간 시각화되며 학습 완료 후에는 모델 구조 및 성능 데이터를 바탕으로 GPT가 개선 피드백을 제공함으로써, 사용자는 이를 통해 딥러닝 구조와 동작 원리를 효과적으로 학습할 수 있다.<br><br> |
 | (4) 기대효과 및 의의 | <br>본 서비스는 코딩에 대한 진입 장벽을 낮춘 딥러닝 교육 플랫폼을 제공하여 비전공자 및 AI 입문자가 딥러닝 모델 설계 및 학습 과정을 쉽게 체험할 수 있도록 한다. 사용자는 직접 모델을 구성하고 학습 결과를 시각적으로 확인하며, LLM(AI)으로부터 모델 개선 및 분석 피드백까지 받을 수 있어 이론과 실습이 통합된 학습을 할 수 있다. 이를 통해 인공지능 교육의 접근성과 효율성을 동시에 향상시키고, 더 많은 사람들이 AI에 대해 쉽고 깊이 있게 이해할 수 있는 기회를 제공한다.<br><br> |
-| (5) 주요 기능 리스트 | <br>**1. 블록 기반 모델 설계 UI**<br>- 사용자는 웹 화면에서 CNN 모델의 구성 요소(Conv, Pooling, Flatten, Dense 등)를 블록 형태로 선택하여 드래그 앤 드롭으로 설계할 수 있다. 블록 간 연결을 통해 모델의 구조를 정의하며, 각 블록은 설정 창을 통해 필터 수, 커널 크기, 활성화 함수 등 하이퍼파라미터를 설정할 수 있다.<br>- Customer View: 프로그래밍 지식이 없는 사용자도 블록 조립만으로 직관적으로 모델을 설계할 수 있으며, 레이어 간 연결 구조를 시각적으로 이해하고 학습할 수 있다.<br><br>**2. 블록 구조 → JSON 변환**<br>- 사용자가 UI 상에서 설계한 모델 구조를 내부적으로 일관된 JSON 포맷으로 변환하는 기능. 각 블록(레이어)은 해당 타입과 필요한 파라미터 정보를 포함한 딕셔너리 형태로 변환되며, 전체 모델은 리스트 형태로 저장된다.<br>ex) 예시 JSON 구조<br> 
-```json
-{
-  "model_name": "MyCNNModel",
-  "dataset_name": "MNIST",
-  "layers": [
-    {
-      "type": "Conv2D",
-      "filters": 32,
-      "kernel_size": 3,
-      "activation": "relu"
-    },
-    {
-      "type": "MaxPooling2D",
-      "pool_size": 2
-    },
-    {
-      "type": "Dense",
-      "units": 128,
-      "activation": "relu"
-    }
-  ],
-  "preprocessing": {
-    "resize": [224, 224],
-    "normalize": true,
-    "augmentation": false
-  },
-  "hyperparameters": {
-    "epochs": 15,
-    "batch_size": 32,
-    "learning_rate": 0.001
-  }
-}
-```
-<br><br>**3. JSON → 코드 자동 생성**<br>- JSON으로 표현된 모델 구조를 OpenAI GPT API에 전달하여, 해당 모델 구조에 맞는 학습 가능한 tensorflow 코드로 자동 변환하는 기능. GPT는 JSON 구조를 기반으로 레이어 순서, 파라미터 설정,  모델 클래스 정의, 필요한 함수 등을 자동으로 작성하여 반환한다. <br>ex) <br><GPT 프롬프트 예시><br>아래 JSON 구조에 맞게 실행 가능한 tensorflow 코드를 작성해주세요. 만약 구조적 오류가 있다면 오류 메세지를 반환하여주세요.<br>{<br>"model_name": <br>"MyCNN",<br>"dataset_name": "MNIST",<br>"layers": [...],<br>"preprocessing": […],<br> "hyperparameters: […],<br>}<br><응답 예시> - 실행 가능한 tensorflow 코드 or python 파일<br>import tensorflow as tf<br>from tensorflow.keras.layers import Input, Conv2D, AveragePooling2D, Flatten, Dense, ReLU<br>from tensorflow.keras.models import Model<br>def myCNNModel():<br>….<br><br>**4. 생성된 코드 실행 및 모델 학습**<br>- GPT가 생성한 모델 코드를 서버 측에서 자동 실행하여 모델을 학습시키는 기능. 코드 실행은 컨테이너 같은 환경에서 수행되며, 학습에는 GPU가 활용된다.<br>- Customer View: 사용자는 블록 설계 → 코드 생성 → 학습까지 전 과정을 몇 번의 클릭만으로 수행 가능<br><br>**5. 학습 로그 및 결과 시각화**<br>- 학습 도중 또는 완료 후 손실 함수 변화,  accuracy, confusion matrix 등의 로그 및 성능 지표를 시각화하여 사용자에게 실시간 또는 결과 형태로 제공한다.<br>- 시각화 항목: Epoch별 Accuracy / Loss 그래프, Confusion Matrix, 모델 구조 요약<br>- Customer View: 자신이 만든 모델의 학습 결과를 그래프와 같은 시각적 요소 확인하며, AI 모델 동작 원리, 레이어 별 역할, 하이퍼파라미터의 영향 등에 대한 이해를 높인다.<br><br>**6. 모델 개선 피드백**<br>- 학습이 완료된 후, 모델 구조 및 성능 결과를 GPT에게 다시 전달하여 모델 개선 방향, 추천 레이어, 하이퍼파라미터 조정 등의 최종적인 피드백을 자동으로 받는 기능. <br>- Customer View: 단순한 실행 결과만 확인할 수 있는 것을 넘어, AI로부터 사용자에게 모델 개선 방향을 제시 받아 심도 있는 학습이 가능하다.<br>ex)<br><GPT 프롬프트 예시><br>이 모델의 accuracy는 0.54, loss은 0.39입니다. 다음은 모델 구조입니다. 어떻게 개선하면 좋을까요?<br>- Conv2D → MaxPooling → Flatten → Dense(128) → Dense(10)<br><GPT 응답 피드백 예시><br>- “Dropout 레이어를 추가해 과적합을 방지해보세요.”<br>- “Conv2D 레이어 수를 늘려보세요.”<br>- “배치 정규화를 적용하면 학습 속도가 개선될 수 있습니다.”<br><br> |
+| (5) 주요 기능 리스트 | <br>**1. 블록 기반 모델 설계 UI**<br>- 사용자는 웹 화면에서 CNN 모델의 구성 요소(Conv, Pooling, Flatten, Dense 등)를 블록 형태로 선택하여 드래그 앤 드롭으로 설계할 수 있다. 블록 간 연결을 통해 모델의 구조를 정의하며, 각 블록은 설정 창을 통해 필터 수, 커널 크기, 활성화 함수 등 하이퍼파라미터를 설정할 수 있다.<br>- Customer View: 프로그래밍 지식이 없는 사용자도 블록 조립만으로 직관적으로 모델을 설계할 수 있으며, 레이어 간 연결 구조를 시각적으로 이해하고 학습할 수 있다.<br><br>**2. 블록 구조 → JSON 변환**<br>- 사용자가 UI 상에서 설계한 모델 구조를 내부적으로 일관된 JSON 포맷으로 변환하는 기능. 각 블록(레이어)은 해당 타입과 필요한 파라미터 정보를 포함한 딕셔너리 형태로 변환되며, 전체 모델은 리스트 형태로 저장된다.<br>ex) 예시 JSON 구조<br> <br><br>**3. JSON → 코드 자동 생성**<br>- JSON으로 표현된 모델 구조를 OpenAI GPT API에 전달하여, 해당 모델 구조에 맞는 학습 가능한 tensorflow 코드로 자동 변환하는 기능. GPT는 JSON 구조를 기반으로 레이어 순서, 파라미터 설정,  모델 클래스 정의, 필요한 함수 등을 자동으로 작성하여 반환한다. <br>ex) <br><GPT 프롬프트 예시><br>아래 JSON 구조에 맞게 실행 가능한 tensorflow 코드를 작성해주세요. 만약 구조적 오류가 있다면 오류 메세지를 반환하여주세요.<br>{<br>"model_name": <br>"MyCNN",<br>"dataset_name": "MNIST",<br>"layers": [...],<br>"preprocessing": […],<br> "hyperparameters: […],<br>}<br><응답 예시> - 실행 가능한 tensorflow 코드 or python 파일<br>import tensorflow as tf<br>from tensorflow.keras.layers import Input, Conv2D, AveragePooling2D, Flatten, Dense, ReLU<br>from tensorflow.keras.models import Model<br>def myCNNModel():<br>….<br><br>**4. 생성된 코드 실행 및 모델 학습**<br>- GPT가 생성한 모델 코드를 서버 측에서 자동 실행하여 모델을 학습시키는 기능. 코드 실행은 컨테이너 같은 환경에서 수행되며, 학습에는 GPU가 활용된다.<br>- Customer View: 사용자는 블록 설계 → 코드 생성 → 학습까지 전 과정을 몇 번의 클릭만으로 수행 가능<br><br>**5. 학습 로그 및 결과 시각화**<br>- 학습 도중 또는 완료 후 손실 함수 변화,  accuracy, confusion matrix 등의 로그 및 성능 지표를 시각화하여 사용자에게 실시간 또는 결과 형태로 제공한다.<br>- 시각화 항목: Epoch별 Accuracy / Loss 그래프, Confusion Matrix, 모델 구조 요약<br>- Customer View: 자신이 만든 모델의 학습 결과를 그래프와 같은 시각적 요소 확인하며, AI 모델 동작 원리, 레이어 별 역할, 하이퍼파라미터의 영향 등에 대한 이해를 높인다.<br><br>**6. 모델 개선 피드백**<br>- 학습이 완료된 후, 모델 구조 및 성능 결과를 GPT에게 다시 전달하여 모델 개선 방향, 추천 레이어, 하이퍼파라미터 조정 등의 최종적인 피드백을 자동으로 받는 기능. <br>- Customer View: 단순한 실행 결과만 확인할 수 있는 것을 넘어, AI로부터 사용자에게 모델 개선 방향을 제시 받아 심도 있는 학습이 가능하다.<br>ex)<br><GPT 프롬프트 예시><br>이 모델의 accuracy는 0.54, loss은 0.39입니다. 다음은 모델 구조입니다. 어떻게 개선하면 좋을까요?<br>- Conv2D → MaxPooling → Flatten → Dense(128) → Dense(10)<br><GPT 응답 피드백 예시><br>- “Dropout 레이어를 추가해 과적합을 방지해보세요.”<br>- “Conv2D 레이어 수를 늘려보세요.”<br>- “배치 정규화를 적용하면 학습 속도가 개선될 수 있습니다.”<br><br> |
 
 <br>
 
